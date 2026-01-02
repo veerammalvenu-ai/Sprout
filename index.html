@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Thulir Nila</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --accent:#e6b8c6;
+  --soft:#9aa4b2;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:Inter, sans-serif;
+  background:var(--bg);
+  color:white;
+  overflow:hidden;
+}
+
+.page{
+  display:none;
+  height:100vh;
+  padding:48px 24px;
+  text-align:center;
+  animation:fade 1s ease;
+}
+
+.page.active{display:flex;flex-direction:column;justify-content:center;}
+
+h1,h2{
+  font-family:'Playfair Display', serif;
+  font-weight:600;
+  margin-bottom:16px;
+}
+
+p{
+  color:var(--soft);
+  line-height:1.6;
+  max-width:420px;
+  margin:0 auto 16px;
+}
+
+input,button{
+  padding:14px 22px;
+  border-radius:30px;
+  border:none;
+  font-size:15px;
+}
+
+input{
+  width:260px;
+  text-align:center;
+  margin-top:16px;
+}
+
+button{
+  background:var(--accent);
+  color:#000;
+  font-weight:500;
+  margin-top:20px;
+}
+
+button.secondary{
+  background:transparent;
+  border:1px solid var(--accent);
+  color:var(--accent);
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:none;}
+}
+
+/* Fireworks */
+.firework{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  animation:explode 1.4s ease-out forwards;
+}
+
+@keyframes explode{
+  from{transform:scale(0);opacity:1;}
+  to{transform:scale(10);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="page active" id="p1">
+  <h1>Private Access</h1>
+  <p>This space is reserved for one person only.</p>
+  <input id="login" placeholder="Enter name">
+  <button onclick="login()">Continue</button>
+  <p id="err" style="color:#ff8a8a"></p>
+</div>
+
+<!-- INTRO -->
+<div class="page" id="p2">
+  <h2>Hello, Thulir Nila</h2>
+  <p>
+    This is not a website.<br>
+    This is a quiet place where my feelings live.
+  </p>
+  <button onclick="go(3)">Next</button>
+</div>
+
+<!-- PRESENCE -->
+<div class="page" id="p3">
+  <h2>Your Presence</h2>
+  <p>
+    Some people enter our lives gently,<br>
+    and suddenly everything feels warmer.
+  </p>
+  <button onclick="go(4)">Next</button>
+</div>
+
+<!-- POEM -->
+<div class="page" id="p4">
+  <h2>The Moon</h2>
+  <p>
+    There are more stars in the sky,<br>
+    yet somehow, I fell for the moon.
+  </p>
+  <p>
+    I like you very much —<br>
+    more than <strong>tan 90°</strong>.
+  </p>
+  <button onclick="go(5)">Next</button>
+</div>
+
+<!-- WHY -->
+<div class="page" id="p5">
+  <h2>Why You</h2>
+  <p>Because your smile feels honest.</p>
+  <p>Because silence feels safe with you.</p>
+  <p>Because my heart recognises you.</p>
+  <button onclick="go(6)">Next</button>
+</div>
+
+<!-- COMMITMENT -->
+<div class="page" id="p6">
+  <h2>What I Feel</h2>
+  <p>
+    This isn’t a moment.<br>
+    It’s something I choose — every day.
+  </p>
+  <button onclick="go(7)">Next</button>
+</div>
+
+<!-- PROPOSAL -->
+<div class="page" id="p7">
+  <h2>One Question</h2>
+  <p>
+    Would you allow me<br>
+    to walk beside you,<br>
+    not ahead, not behind —
+    just with you?
+  </p>
+  <button onclick="go(8)">Yes</button>
+</div>
+
+<!-- CELEBRATION -->
+<div class="page" id="p8">
+  <h1>✨</h1>
+  <p>
+    Whatever your answer,<br>
+    thank you for existing.
+  </p>
+</div>
+
+<script>
+function go(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
+  if(n===8) fireworks();
+}
+
+function login(){
+  let v=document.getElementById('login').value.toLowerCase().trim();
+  if(v==="thulir nila"){
+    go(2);
+  }else{
+    document.getElementById('err').innerText="Access restricted.";
+  }
+}
+
+function fireworks(){
+  setInterval(()=>{
+    let f=document.createElement("div");
+    f.className="firework";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*100+"vh";
+    f.style.background=`hsl(${Math.random()*360},70%,70%)`;
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1400);
+  },250);
+}
+</script>
+
+</body>
+</html>
